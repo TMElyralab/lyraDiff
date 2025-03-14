@@ -1,0 +1,4 @@
+
+add_library(timestep_ffn_kernels STATIC ffn_kernels.cu)
+set_property(TARGET timestep_ffn_kernels PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET timestep_ffn_kernels PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)

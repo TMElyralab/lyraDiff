@@ -1,0 +1,37 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(FluxAttnPostProcessorWeight STATIC FluxAttnPostProcessorWeight.cc)
+
+set_property(TARGET FluxAttnPostProcessorWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET FluxAttnPostProcessorWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(FluxAttnPostProcessorWeight PUBLIC cuda_utils logger memory_utils load_lora)
+
+add_library(FluxAttnPostProcessor STATIC FluxAttnPostProcessor.cc)
+
+set_property(TARGET FluxAttnPostProcessor PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET FluxAttnPostProcessor PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(FluxAttnPostProcessor PUBLIC FluxAttnPostProcessorWeight activation flux_single_transformer_kernels cuda_utils logger memory_utils layernorm common_ops)
+
+add_library(FluxAttnPostFP8ProcessorWeight STATIC FluxAttnPostFP8ProcessorWeight.cc)
+
+set_property(TARGET FluxAttnPostFP8ProcessorWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET FluxAttnPostFP8ProcessorWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(FluxAttnPostFP8ProcessorWeight PUBLIC FluxAttnPostProcessorWeight cuda_utils logger memory_utils load_lora)
+
+add_library(FluxAttnPostFP8Processor STATIC FluxAttnPostFP8Processor.cc)
+
+set_property(TARGET FluxAttnPostFP8Processor PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET FluxAttnPostFP8Processor PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(FluxAttnPostFP8Processor PUBLIC FluxAttnPostProcessor FluxAttnPostFP8ProcessorWeight activation flux_single_transformer_kernels cuda_utils logger memory_utils layernorm common_ops)
+
+add_library(FluxAttnPostInt4ProcessorWeight STATIC FluxAttnPostInt4ProcessorWeight.cc)
+
+set_property(TARGET FluxAttnPostInt4ProcessorWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET FluxAttnPostInt4ProcessorWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(FluxAttnPostInt4ProcessorWeight PUBLIC FluxAttnPostProcessorWeight cuda_utils logger memory_utils load_lora)
+
+add_library(FluxAttnPostInt4Processor STATIC FluxAttnPostInt4Processor.cc)
+
+set_property(TARGET FluxAttnPostInt4Processor PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET FluxAttnPostInt4Processor PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(FluxAttnPostInt4Processor PUBLIC FluxAttnPostProcessor FluxAttnPostInt4ProcessorWeight W4A4Gemm activation flux_single_transformer_kernels cuda_utils logger memory_utils layernorm common_ops)

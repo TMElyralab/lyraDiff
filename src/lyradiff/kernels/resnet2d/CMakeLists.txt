@@ -1,0 +1,3 @@
+add_library(resnet2d_kernels STATIC resnet2d_kernels.cu)
+set_property(TARGET resnet2d_kernels PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET resnet2d_kernels PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)

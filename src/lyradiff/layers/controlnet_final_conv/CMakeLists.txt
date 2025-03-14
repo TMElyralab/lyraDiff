@@ -1,0 +1,13 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(ControlNetFinalConvWeight STATIC ControlNetFinalConvWeight.cc)
+
+set_property(TARGET ControlNetFinalConvWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET ControlNetFinalConvWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(ControlNetFinalConvWeight PUBLIC cuda_utils logger memory_utils)
+
+add_library(ControlNetFinalConv STATIC ControlNetFinalConv.cc)
+
+set_property(TARGET ControlNetFinalConv PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET ControlNetFinalConv PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(ControlNetFinalConv PUBLIC conv2d ControlNetFinalConvWeight activation cuda_utils logger memory_utils)

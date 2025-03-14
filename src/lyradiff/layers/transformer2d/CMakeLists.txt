@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(Transformer2dBlockWeight STATIC Transformer2dBlockWeight.cc)
+set_property(TARGET Transformer2dBlockWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET Transformer2dBlockWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(Transformer2dBlockWeight PUBLIC memory_utils load_lora BasicTransformerBlockWeight BasicTransformerInt8BlockWeight)
+
+add_library(Transformer2dBlock STATIC Transformer2dBlock.cc)
+set_property(TARGET Transformer2dBlock PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET Transformer2dBlock PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(Transformer2dBlock PUBLIC group_norm conv2d BasicTransformerBlock BasicTransformerInt8Block Transformer2dBlockWeight)
+
+
+add_library(XLTransformer2dBlockWeight STATIC XLTransformer2dBlockWeight.cc)
+set_property(TARGET XLTransformer2dBlockWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET XLTransformer2dBlockWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(XLTransformer2dBlockWeight PUBLIC memory_utils load_lora BasicTransformerBlockWeight BasicTransformerInt8BlockWeight)
+
+add_library(XLTransformer2dBlock STATIC XLTransformer2dBlock.cc)
+set_property(TARGET XLTransformer2dBlock PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET XLTransformer2dBlock PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(XLTransformer2dBlock PUBLIC add_bias group_norm conv2d ffn_kernels BasicTransformerBlock BasicTransformerInt8Block XLTransformer2dBlockWeight)

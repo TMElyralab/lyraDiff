@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.8)
+
+
+add_library(Unet2dConditionalModelWeight STATIC Unet2dConditionalModelWeight.cc)
+
+set_property(TARGET Unet2dConditionalModelWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET Unet2dConditionalModelWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(Unet2dConditionalModelWeight PUBLIC memory_utils Resnet2DBlock cuda_utils  UNetMidBlock2DCrossAttnWeight TimestepEmbeddingBlockWeight CrossAttnDownBlock2dWeight CrossAttnUpBlock2dWeight DownBlock2DWeight UpBlock2dWeight)
+
+add_library(Unet2dConditionalModel STATIC Unet2dConditionalModel.cc)
+
+set_property(TARGET Unet2dConditionalModel PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET Unet2dConditionalModel PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(Unet2dConditionalModel PUBLIC conv2d residual ControlNetModel TimeProjection Unet2dConditionalModelWeight UNetMidBlock2DCrossAttn TimestepEmbeddingBlock CrossAttnDownBlock2d CrossAttnUpBlock2d DownBlock2D UpBlock2d cuda_utils logger memory_utils)

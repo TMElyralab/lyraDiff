@@ -1,0 +1,7 @@
+add_subdirectory(utils)
+add_subdirectory(kernels)
+add_subdirectory(layers)
+add_subdirectory(models)
+if(BUILD_PYT)
+    add_subdirectory(th_op)
+endif()

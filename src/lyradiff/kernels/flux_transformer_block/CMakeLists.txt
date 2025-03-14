@@ -1,0 +1,3 @@
+add_library(flux_transformer_kernels STATIC flux_transformer_kernels.cu)
+set_property(TARGET flux_transformer_kernels PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET flux_transformer_kernels PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)

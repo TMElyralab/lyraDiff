@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.8)
+
+
+add_library(ControlNetModelWeight STATIC ControlNetModelWeight.cc)
+
+set_property(TARGET ControlNetModelWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET ControlNetModelWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(ControlNetModelWeight PUBLIC memory_utils Resnet2DBlock cuda_utils  UNetMidBlock2DCrossAttnWeight TimestepEmbeddingBlockWeight CrossAttnDownBlock2dWeight CrossAttnUpBlock2dWeight DownBlock2DWeight UpBlock2dWeight ControlNetFinalConvWeight ControlNetConditioningEmbeddingWeight)
+
+add_library(ControlNetModel STATIC ControlNetModel.cc)
+
+set_property(TARGET ControlNetModel PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET ControlNetModel PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(ControlNetModel PUBLIC conv2d residual TimeProjection ControlNetModelWeight ControlNetConditioningEmbedding ControlNetFinalConv UNetMidBlock2DCrossAttn TimestepEmbeddingBlock CrossAttnDownBlock2d DownBlock2D cuda_utils logger memory_utils)

@@ -1,0 +1,14 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(TimestepEmbeddingBlockWeight STATIC TimestepEmbeddingBlockWeight.cc)
+
+set_property(TARGET TimestepEmbeddingBlockWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+target_link_libraries(TimestepEmbeddingBlockWeight PUBLIC memory_utils -lcublas activation cuda_utils logger memory_utils load_lora)
+set_property(TARGET TimestepEmbeddingBlockWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+
+add_library(TimestepEmbeddingBlock STATIC TimestepEmbeddingBlock.cc)
+
+set_property(TARGET TimestepEmbeddingBlock PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET TimestepEmbeddingBlock PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(TimestepEmbeddingBlock PUBLIC -lcublas activation timestep_ffn_kernels cuda_utils logger gemm memory_utils)
+

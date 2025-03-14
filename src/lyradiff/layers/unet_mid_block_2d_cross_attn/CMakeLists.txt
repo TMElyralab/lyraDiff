@@ -1,0 +1,26 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(UNetMidBlock2DCrossAttnWeight STATIC UNetMidBlock2DCrossAttnWeight.cc)
+
+set_property(TARGET UNetMidBlock2DCrossAttnWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET UNetMidBlock2DCrossAttnWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(UNetMidBlock2DCrossAttnWeight PUBLIC -lcublas memory_utils Resnet2DBlockWeight load_lora Transformer2dBlockWeight cuda_utils logger memory_utils)
+
+add_library(UNetMidBlock2DCrossAttn STATIC UNetMidBlock2DCrossAttn.cc)
+
+set_property(TARGET UNetMidBlock2DCrossAttn PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET UNetMidBlock2DCrossAttn PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(UNetMidBlock2DCrossAttn PUBLIC -lcublas Resnet2DBlock Transformer2dBlock cuda_utils logger gemm memory_utils)
+
+
+add_library(XLUNetMidBlock2DCrossAttnWeight STATIC XLUNetMidBlock2DCrossAttnWeight.cc)
+
+set_property(TARGET XLUNetMidBlock2DCrossAttnWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET XLUNetMidBlock2DCrossAttnWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(XLUNetMidBlock2DCrossAttnWeight PUBLIC -lcublas memory_utils Resnet2DBlockWeight XLTransformer2dBlockWeight cuda_utils logger memory_utils)
+
+add_library(XLUNetMidBlock2DCrossAttn STATIC XLUNetMidBlock2DCrossAttn.cc)
+
+set_property(TARGET XLUNetMidBlock2DCrossAttn PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET XLUNetMidBlock2DCrossAttn PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(XLUNetMidBlock2DCrossAttn PUBLIC -lcublas Resnet2DBlock XLTransformer2dBlock cuda_utils logger gemm memory_utils)

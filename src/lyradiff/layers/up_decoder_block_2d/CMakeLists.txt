@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(UpDecoderBlock2dWeight STATIC UpDecoderBlock2dWeight.cc)
+set_property(TARGET UpDecoderBlock2dWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET UpDecoderBlock2dWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(UpDecoderBlock2dWeight PUBLIC Resnet2DBlockWeight)
+
+add_library(UpDecoderBlock2d STATIC UpDecoderBlock2d.cc)
+set_property(TARGET UpDecoderBlock2d PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET UpDecoderBlock2d PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(UpDecoderBlock2d PUBLIC conv2d interpolate cat_kernels Resnet2DBlock UpDecoderBlock2dWeight)

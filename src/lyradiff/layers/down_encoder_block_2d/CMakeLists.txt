@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(DownEncoderBlock2DWeight STATIC DownEncoderBlock2DWeight.cc)
+set_property(TARGET DownEncoderBlock2DWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET DownEncoderBlock2DWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(DownEncoderBlock2DWeight PUBLIC Resnet2DBlockWeight)
+
+add_library(DownEncoderBlock2D STATIC DownEncoderBlock2D.cc)
+set_property(TARGET DownEncoderBlock2D PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET DownEncoderBlock2D PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(DownEncoderBlock2D PUBLIC conv2d down_encoder_block_2d_kernels Resnet2DBlock DownEncoderBlock2DWeight)

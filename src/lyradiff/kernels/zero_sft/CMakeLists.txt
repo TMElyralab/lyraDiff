@@ -1,0 +1,3 @@
+add_library(zero_sft_kernels STATIC zero_sft_kernels.cu)
+set_property(TARGET zero_sft_kernels PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET zero_sft_kernels PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)

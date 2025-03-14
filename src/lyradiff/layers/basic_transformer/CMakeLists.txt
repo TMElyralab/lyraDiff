@@ -1,0 +1,21 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(BasicTransformerBlockWeight STATIC BasicTransformerBlockWeight.cc)
+set_property(TARGET BasicTransformerBlockWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET BasicTransformerBlockWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(BasicTransformerBlockWeight PUBLIC memory_utils load_lora)
+
+add_library(BasicTransformerBlock STATIC BasicTransformerBlock.cc)
+set_property(TARGET BasicTransformerBlock PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET BasicTransformerBlock PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(BasicTransformerBlock PUBLIC -lcublas -lcudart fused_geglu_kernel basic_transformer_kernels ffn_kernels cross_attention flash_attn2 flash_attention_v2 tensor flash_attention_v1 layernorm cuda_utils BasicTransformerBlockWeight residual common_ops)
+
+add_library(BasicTransformerInt8BlockWeight STATIC BasicTransformerInt8BlockWeight.cc)
+set_property(TARGET BasicTransformerInt8BlockWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET BasicTransformerInt8BlockWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(BasicTransformerInt8BlockWeight PUBLIC memory_utils load_lora)
+
+add_library(BasicTransformerInt8Block STATIC BasicTransformerInt8Block.cc)
+set_property(TARGET BasicTransformerInt8Block PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET BasicTransformerInt8Block PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(BasicTransformerInt8Block PUBLIC -lcublas -lcudart memory_utils quant_kernels ffn_kernels_int8 layer_norm_int8 fused_geglu_kernel basic_transformer_kernels ffn_kernels cross_attention flash_attn2 flash_attention_v2 tensor flash_attention_v1 layernorm cuda_utils BasicTransformerInt8BlockWeight residual common_ops)

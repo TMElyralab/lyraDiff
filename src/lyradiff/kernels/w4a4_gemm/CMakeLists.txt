@@ -1,0 +1,3 @@
+add_library(w4a4_gemm STATIC w4a4_gemm.cu)
+set_property(TARGET w4a4_gemm PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET w4a4_gemm PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)

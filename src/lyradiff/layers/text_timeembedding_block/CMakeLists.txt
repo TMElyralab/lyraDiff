@@ -1,0 +1,11 @@
+add_library(TextTimeEmbeddingBlockWeight STATIC TextTimeEmbeddingBlockWeight.cc)
+
+set_property(TARGET TextTimeEmbeddingBlockWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET TextTimeEmbeddingBlockWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(TextTimeEmbeddingBlockWeight PUBLIC memory_utils -lcublas activation cuda_utils logger memory_utils TimestepEmbeddingBlockWeight)
+
+add_library(TextTimeEmbeddingBlock STATIC TextTimeEmbeddingBlock.cc)
+
+set_property(TARGET TextTimeEmbeddingBlock PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET TextTimeEmbeddingBlock PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(TextTimeEmbeddingBlock PUBLIC -lcublas activation timestep_ffn_kernels TimestepEmbeddingBlock TimeProjection cuda_utils logger gemm memory_utils common_ops)

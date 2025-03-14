@@ -1,0 +1,16 @@
+diffusers==0.31.0
+GPUtil==1.4.0
+numpy==1.24.4
+nvidia_modelopt==0.15.0
+onnx_graphsurgeon==0.5.6
+optimum_quanto==0.2.6
+peft==0.14.0
+Pillow==11.1.0
+PyYAML==6.0.2
+Requests==2.32.3
+safetensors==0.5.3
+scipy==1.15.2
+setuptools==70.3.0
+torch
+# torch==2.5.0a0+872d972e41.nv24.8
+transformers==4.48.0

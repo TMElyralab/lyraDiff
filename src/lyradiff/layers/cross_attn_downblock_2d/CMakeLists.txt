@@ -1,0 +1,22 @@
+cmake_minimum_required(VERSION 3.8)
+
+add_library(CrossAttnDownBlock2dWeight STATIC CrossAttnDownBlock2dWeight.cc)
+set_property(TARGET CrossAttnDownBlock2dWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET CrossAttnDownBlock2dWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(CrossAttnDownBlock2dWeight PUBLIC Resnet2DBlockWeight Transformer2dBlockWeight load_lora)
+
+add_library(CrossAttnDownBlock2d STATIC CrossAttnDownBlock2d.cc)
+set_property(TARGET CrossAttnDownBlock2d PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET CrossAttnDownBlock2d PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(CrossAttnDownBlock2d PUBLIC conv2d Resnet2DBlock Transformer2dBlock CrossAttnDownBlock2dWeight)
+
+
+add_library(XLCrossAttnDownBlock2dWeight STATIC XLCrossAttnDownBlock2dWeight.cc)
+set_property(TARGET XLCrossAttnDownBlock2dWeight PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET XLCrossAttnDownBlock2dWeight PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(XLCrossAttnDownBlock2dWeight PUBLIC Resnet2DBlockWeight XLTransformer2dBlockWeight)
+
+add_library(XLCrossAttnDownBlock2d STATIC XLCrossAttnDownBlock2d.cc)
+set_property(TARGET XLCrossAttnDownBlock2d PROPERTY POSITION_INDEPENDENT_CODE  ON)
+set_property(TARGET XLCrossAttnDownBlock2d PROPERTY CUDA_RESOLVE_DEVICE_SYMBOLS  ON)
+target_link_libraries(XLCrossAttnDownBlock2d PUBLIC conv2d Resnet2DBlock XLTransformer2dBlock XLCrossAttnDownBlock2dWeight)
