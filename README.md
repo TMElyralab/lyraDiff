@@ -39,7 +39,7 @@ We test our acceleration to [SDXL](https://huggingface.co/stabilityai/stable-dif
 | 1024x1024  |   20   |       2.30         |        1.44          |   1.6x    |
 
 ### FLUX performance 
-We test our acceleration to [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) on these commonly used image generation shapes. We use [HF diffusers](https://github.com/huggingface/diffusers) with `bf16` as baseline in comparison to lyraDiff with `FP8` quantization method, since `FP8` presents almost no difference to original images on `L20 and 4090` and gives better performance.
+We test our acceleration to [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) on these commonly used image generation shapes. We use [HF diffusers](https://github.com/huggingface/diffusers) with `FP8-WO` as baseline in comparison to lyraDiff with `FP8` quantization method, since `FP8` presents almost no difference to original images on `L20 and 4090` and gives better performance.
 
 #### Device: 4090-24G, Dtype: fp8
 
