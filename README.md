@@ -38,8 +38,19 @@ We test our acceleration to [SDXL](https://huggingface.co/stabilityai/stable-dif
 |  768x768   |   20   |       1.53         |        0.89          |   1.7x    |
 | 1024x1024  |   20   |       2.30         |        1.44          |   1.6x    |
 
-### FLUX performance (Device: L20-48G, Dtype: fp8)
-We test our acceleration to [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) on these commonly used image generation shapes. We use [HF diffusers](https://github.com/huggingface/diffusers) with `bf16` as baseline in comparison to lyraDiff with `FP8` quantization method, since `FP8` presents almost no difference to original images on L20 and gives better performance.
+### FLUX performance 
+We test our acceleration to [FLUX.1-dev](https://huggingface.co/black-forest-labs/FLUX.1-dev) on these commonly used image generation shapes. We use [HF diffusers](https://github.com/huggingface/diffusers) with `bf16` as baseline in comparison to lyraDiff with `FP8` quantization method, since `FP8` presents almost no difference to original images on `L20 and 4090` and gives better performance.
+
+#### Device: 4090-24G, Dtype: fp8
+
+| Image Size | Steps  | Time cost(s)       | Time cost(s) (lyra)  | Speed Up |
+|:----------:|:------:|:------------------:|:--------------------:|:--------:|
+|  512x512   |   20   |       3.81         |        2.16          |   1.8x   |
+|  768x768   |   20   |       7.55         |        4.13          |   1.8x   |
+| 1024x1024  |   20   |      13.48         |        7.22          |   1.9x   |
+| 1280x1280  |   20   |      22.77         |       13.14          |   1.7x   |
+
+#### Device: L20-48G, Dtype: fp8
 
 | Image Size | Steps  | Time cost(s)       | Time cost(s) (lyra)  | Speed Up |
 |:----------:|:------:|:------------------:|:--------------------:|:--------:|
@@ -47,6 +58,18 @@ We test our acceleration to [FLUX.1-dev](https://huggingface.co/black-forest-lab
 |  768x768   |   20   |      10.22         |        5.64          |   1.8x   |
 | 1024x1024  |   20   |      18.34         |       10.28          |   1.8x   |
 | 1280x1280  |   20   |      31.47         |       17.64          |   1.8x   |
+
+
+### S3Diff performance (Device: A10-24G, Dtype: fp16)
+We test our acceleration to [S3Diff](https://github.com/ArcticHare105/S3Diff) on these commonly used image SR shapes. We use the original pipeline with `fp16` as baseline in comparison to lyraDiff on `A10`.
+
+| Image Size | SR Ratio | Time cost(s) (ori) | Time cost(s) (lyra) | Speed Up     |
+|:----------:|:--------:|:------------------:|:-------------------:|:------------:|
+| 128x128    | 4        | 0.68               | 0.17                | 4.0x         |
+| 512x512    | 2        | 2.10               | 0.86                | 2.4x         |
+| 720x1280   | 2        | 16.64              | 3.36                | 4.9x         |
+| 1024x1024  | 2        | 19.90              | 3.75                | 5.3x         |
+| 1920x1080  | 2        | 42.24              | 6.91                | 6.1x         |
 
 ### Model swap performance (Device: A100-40G, Dtype: fp16)
 
@@ -146,6 +169,9 @@ This roadmap outlines our key development goals for March-April 2025. Contributi
 - [ ] Code Structure Documentation
 - [ ] Detailed Model API Documentation
 - [ ] Contribution Guide
+
+#### UI
+- [ ] Add ComfyUI node for FLUX.1
 
 #### Models
 - [ ] Support more plugins for FLUX.1
