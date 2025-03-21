@@ -19,7 +19,7 @@ We optimize the implementation of S3Diff to avoid unnecessary calculation and H2
 We evaluate the performance of lyraDiff and original S3Diff on both A10 and L20.   
 
 #### A10 performance
-| Image Size | SR Ratio | Time cost(s) (ori) | Time cost(s) (lyra) | Speed Up     |
+| Image Size | SR Ratio | Time cost(s)       | Time cost(s) (lyra) | Speed Up     |
 |:----------:|:--------:|:------------------:|:-------------------:|:------------:|
 | 128x128    | 4        | 0.68               | 0.17                | 4.0x         |
 | 512x512    | 2        | 2.10               | 0.86                | 2.4x         |
@@ -28,7 +28,7 @@ We evaluate the performance of lyraDiff and original S3Diff on both A10 and L20.
 | 1920x1080  | 2        | 42.24              | 6.91                | 6.1x         |
 
 #### L20 performance
-| Image Size | SR Ratio | Time cost(s) (ori) | Time cost(s) (lyra) | Speed Up     |
+| Image Size | SR Ratio | Time cost(s)       | Time cost(s) (lyra) | Speed Up     |
 |:----------:|:--------:|:------------------:|:-------------------:|:------------:|
 | 128x128    | 4        | 0.47               | 0.10                | 4.7x         |
 | 512x512    | 2        | 1.31               | 0.48                | 2.7x         |
